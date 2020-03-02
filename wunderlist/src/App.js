@@ -1,22 +1,14 @@
 import React from 'react';
-import { Route, Link } from "react-router-dom";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import { Route } from "react-router-dom";
+import LoginSignup from "./components/onboarding/LoginSignup";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <div className="login-signup">
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-      </div>
+      <Route path="/">
+        <LoginSignup />
+      </Route>
     </div>
   );
 }
