@@ -7,6 +7,6 @@ export const axiosWithAuth = () => {
         headers: {
             authorization: token
         },
-        baseURL: '/TBD'
+        baseURL: 'https://wunderlistdb.herokuapp.com'
     })
 }
