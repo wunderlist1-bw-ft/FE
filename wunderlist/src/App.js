@@ -14,8 +14,8 @@ function App() {
         <Link to="/login">Login</Link>
         <Link to="/signup">Sign Up</Link>
 
-       <PrivateRoute path='/dashboard' component={Dashboard} />
         <Route path="/login" component={Login} />
+        <PrivateRoute path='/dashboard' component={Dashboard} />
         <Route path="/signup" component={Signup} />
       </div>
     </div>
