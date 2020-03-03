@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchTasks } from '../actions'
 
 const Tasks = props => {
-    //console.log('task props', props)
+    //console.log('task.js props', props)
 
     useEffect(() => {
         props.fetchTasks()

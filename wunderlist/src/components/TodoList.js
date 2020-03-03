@@ -3,18 +3,20 @@ import { connect } from 'react-redux'
 
 import { fetchLists } from '../actions'
 
+import List from './List'
 
 const TodoList = props => {
-    //console.log('todolist props', props)
+    //console.log('todolist.js props', props)
 
     useEffect(() => {
         props.fetchLists();
     }, [])
 
     return (
-        <div>
-            Hello
-            {console.log(props)}
+        <div className='list-container'>
+           {props.lists.map(list => (
+               <List key={list.id} list={list} />
+           ))}
         </div>
     )
 }

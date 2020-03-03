@@ -5,7 +5,7 @@ export const fetchLists = () => dispatch => {
         axios
             .get('https://wunderlistdb.herokuapp.com/api/auth/todos/all')
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 dispatch({ type: 'SET_LISTS', payload: res.data})
             })
             .catch(err => {
@@ -19,7 +19,7 @@ export const fetchTasks = () => dispatch => {
         axios
             .get('https://wunderlistdb.herokuapp.com/api/auth/tasks')
             .then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 dispatch({ type: 'SET_TASKS', payload: res.data})
             })
             .catch(err => {
