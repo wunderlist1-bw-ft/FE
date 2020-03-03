@@ -1,60 +1,75 @@
-import React from "react";
-import { withFormik, Form, Field } from "formik";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import axios from "axios";
 import "./LoginSignup.css";
 
-const SignupForm = ({ touched, errors }) => {
+const schema = Yup.object().shape({
+    username: Yup.string().required(),
+    email: Yup.string().email(),
+    password: Yup.string().required()
+});
+
+const SignupForm = () => {
+    // const [credentials, setCredentials] = useState({ username: '', email: '', password: '' });
+    const { register, handleSubmit, errors } = useForm({ validationSchema: schema });
+
+    const onSubmit = data => {
+        // e.preventDefault();
+        // setCredentials({ username: '', email: '', password: '' });
+        console.log(data);
+    }
+
+    // const handleChange = e => {
+    //     console.log('test');
+    //     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    // }
 
     return (
         <div className="form-wrapper">
-            <Form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="username">
                     Username:
-                    <Field id="username" name="username" type="text" placeholder="Username" />
-                    {touched.username && errors.username && (
-                        <p className="errors">{errors.username}</p>)}
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        // value={credentials.username}
+                        // onChange={handleChange}
+                        ref={register}
+                    />
+                    {errors.username && <p>{errors.username.message}</p>}
                 </label>
                 <label htmlFor="email">
                     Email:
-                    <Field id="email" name="email" type="email" placeholder="Email" />
-                    {touched.email && errors.email && (
-                        <p className="errors">{errors.email}</p>)}
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        // value={credentials.email}
+                        // onChange={handleChange}
+                        ref={register}
+                    />
+                    {errors.email && (<p className="errors">{errors.email.message}</p>)}
                 </label>
                 <label htmlFor="password">
                     Password:
-                    <Field id="password" name="password" type="password" placeholder="Password" />
-                    {touched.password && errors.password && (
-                        <p className="errors">{errors.password}</p>)}
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        // value={credentials.password}
+                        // onChange={handleChange}
+                        ref={register}
+                    />
+                    {errors.password && <p>{errors.password.message}</p>}
                 </label>
-                <button type="submit">Sign Up</button>
-            </Form>
+                <button type="submit">Login</button>
+            </form>
         </div>
     )
 }
 
-const FormikSignupForm = withFormik({
-    mapPropsToValues({ username, email, password }) {
-        return {
-            username: username || "",
-            email: email || "",
-            password: password || ""
-        };
-    },
-    validationSchema: Yup.object().shape({
-        username: Yup.string().required(),
-        email: Yup.string().email(),
-        password: Yup.string().required()
-    }),
-    handleSubmit(values, { resetForm }) {
-        console.log(values);
-        axios.post("https://reqres.in/api/users", values)
-            .then(res => {
-                console.log(res);
-                resetForm();
-            })
-            .catch(err => console.log(err));
-    }
-})(SignupForm);
-
-export default FormikSignupForm;
+export default SignupForm;

@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Route path="/">
-        <Dashboard />
+        <LoginSignup />
       </Route>
     </div>
   );
