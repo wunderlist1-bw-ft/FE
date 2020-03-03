@@ -5,8 +5,9 @@ import { fetchLists } from '../actions'
 
 import List from './List'
 
+
 const TodoList = props => {
-    //console.log('todolist.js props', props)
+    console.log('todolist.js props', props)
 
     useEffect(() => {
         props.fetchLists();

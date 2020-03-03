@@ -1,6 +1,6 @@
 import React from 'react'
 import TodoList from './TodoList'
-import Tasks from './Tasks'
+
 
 
 
@@ -9,7 +9,7 @@ const Dashboard = props => {
     return (
         <div className='dashboard'>
                 <TodoList />
-                <Tasks />
+                <button>Add a New List</button>
         </div>
     )
 }

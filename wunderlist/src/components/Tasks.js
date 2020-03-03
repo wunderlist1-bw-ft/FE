@@ -1,33 +1,20 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
-import { fetchTasks } from '../actions'
+
 
 const Tasks = props => {
-    //console.log('task.js props', props)
-
-    useEffect(() => {
-        props.fetchTasks()
-
-    }, [])
+    console.log('tasks.js props', props)
 
     return (
         <div>
-            Testing Tasks
+            <ul key={props.task.id} className='task-list'>
+                <li>
+                    {props.task.name}
+                    <input type='checkbox' />
+                </li>
+            </ul>
         </div>
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        tasks: state.tasks,
-        lists: state.lists,
-        isLoading: state.isLoading,
-        error: state.error
-    }
-}
-
-export default connect(
-    mapStateToProps, 
-    { fetchTasks }
-    )(Tasks);
+export default Tasks

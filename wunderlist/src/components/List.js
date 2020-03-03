@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchTasks } from '../actions/index'
 
+import Tasks from './Tasks'
+
 const List = props => {
    // console.log('list.js props', props)
 
@@ -9,17 +11,11 @@ const List = props => {
         props.fetchTasks()
     },[])
 
-    const mapped = props.tasks.map(task => {
-        if (task.todo_list_Id === props.list.id) {
-           return <ul key={task.id}><li>{task.name}</li></ul>
-        }
-    })
 
     return (
         <div className='todo-list'>
-           <p>{props.list.name}</p>
-           {mapped}
-           
+           <h3>{props.list.name}</h3>
+           {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
         </div>
     )
 }
