@@ -5,7 +5,6 @@ import Tasks from './Tasks'
 
 
 const Dashboard = props => {
-    console.log('props', props)
 
     return (
         <div className='dashboard'>

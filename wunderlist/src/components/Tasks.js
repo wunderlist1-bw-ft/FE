@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
+
+import { fetchTasks } from '../actions'
 
 const Tasks = props => {
+    //console.log('task props', props)
 
     useEffect(() => {
-        axios
-            .get('https://wunderlistdb.herokuapp.com/api/auth/tasks')
-            .then(res => {
-                console.log('tasks', res.data)
-            })
-            .catch(err => console.log('error fetching tasks', err))
+        props.fetchTasks()
+
     }, [])
 
     return (
@@ -20,11 +18,16 @@ const Tasks = props => {
     )
 }
 
-const mapStateToProps = ({ state }) => {
-    return { state }
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks,
+        lists: state.lists,
+        isLoading: state.isLoading,
+        error: state.error
+    }
 }
 
 export default connect(
     mapStateToProps, 
-    {}
+    { fetchTasks }
     )(Tasks);

@@ -1,29 +1,33 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
+
+import { fetchLists } from '../actions'
 
 
 const TodoList = props => {
+    //console.log('todolist props', props)
+
     useEffect(() => {
-        axios   
-        .get('https://wunderlistdb.herokuapp.com/api/auth/todos/all')
-        .then(res => {
-            console.log('list data', res.data)
-        })
-        .catch(err => console.log('error fetching lists', err))
+        props.fetchLists();
     }, [])
 
     return (
         <div>
             Hello
+            {console.log(props)}
         </div>
     )
 }
-const mapStateToProps = ({ state }) => {
-    return { state }
+const mapStateToProps = state => {
+    return {
+       tasks: state.tasks,
+       lists: state.lists,
+       isLoading: state.isLoading,
+       error: state.error
+    }
 }
 
 export default connect(
     mapStateToProps, 
-    {}
+    { fetchLists }
     )(TodoList);
