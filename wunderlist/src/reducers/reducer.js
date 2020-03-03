@@ -1,51 +1,44 @@
 const initialState = {
-    isAuthenticated: false,
     isLoading: false,
-    tasks: [
-        { 
-            name: "clean dishes", 
-            description: "new soap", 
-            todo_list_Id: 1 
-        },
-        { 
-            name: "walk dog", 
-            description: "avoid 7th st", 
-            todo_list_Id: 1 
-        }],
-    todoLists: [
-        { 
-            id: 1, 
-            name: "daily stuff", 
-            User_id: 1 
-        },
-        { 
-            id: 2, 
-            name: "shopping list", 
-            User_id: 1 
-        }],
+    error: '',
+    lists: [],
+    tasks: [],
 }
 
-export const reducer = (state = initialState, action) => {
+
+export const todoReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'LOGIN_SUCCESS':
+        case 'FETCHING_LISTS':
             return {
-                ...state
+                ...state,
+                isLoading: true
             }
-        case 'LOGIN_ERROR':
+        case 'SET_LISTS':
             return {
-                ...state
+                ...state,
+                isLoading: false,
+                lists: action.payload
             }
-        case 'ADD_TODO':
+        case 'LISTS_ERROR':
             return {
-                ...state
+                ...state,
+                isLoading: false,
+                error: action.payload
             }
-        case 'REMOVE_TODO':
+        case 'FETCHING_TASKS':
             return {
-                ...state
+                ...state,
+                isLoading: true
             }
-        case 'TOGGLE_TODO':
+        case 'SET_TASKS':
             return {
-                ...state
+                ...state,
+                tasks: action.payload
+            }
+        case 'TASKS_ERROR':
+            return {
+                ...state,
+                error: action.payload
             }
         default:
             return state
