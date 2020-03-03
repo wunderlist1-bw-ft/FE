@@ -2,39 +2,32 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import "./LoginSignup.css";
 
-const Login = ({ touched, errors }) => {
+const LoginForm = ({ touched, errors }) => {
 
     return (
         <div className="form-wrapper">
             <Form>
                 <label htmlFor="username">
                     Username:
-                    <Field 
-                    id="username" 
-                    name="username" 
-                    type="text" 
-                    placeholder="Username" />
+                    <Field id="username" name="username" type="text" placeholder="Username" />
                     {touched.username && errors.username && (
                         <p className="errors">{errors.username}</p>)}
                 </label>
                 <label htmlFor="password">
                     Password:
-                    <Field 
-                    id="password" 
-                    name="password" 
-                    type="password" 
-                    placeholder="Password" />
+                    <Field id="password" name="password" type="password" placeholder="Password" />
                     {touched.password && errors.password && (
                         <p className="errors">{errors.password}</p>)}
                 </label>
-                <button type="submit">Sign Up</button>
+                <button type="submit">Login</button>
             </Form>
         </div>
     )
 }
 
-const FormikSignupForm = withFormik({
+const FormikLoginForm = withFormik({
     mapPropsToValues({ username, password }) {
         return {
             username: username || "",
@@ -54,6 +47,6 @@ const FormikSignupForm = withFormik({
             })
             .catch(err => console.log(err));
     }
-})(Login);
+})(LoginForm);
 
-export default FormikSignupForm;
+export default FormikLoginForm;
