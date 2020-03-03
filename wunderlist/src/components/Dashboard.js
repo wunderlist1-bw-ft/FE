@@ -1,35 +1,16 @@
-import React, { useState, useEffect, createContext } from 'react'
-import axios from 'axios'
+import React from 'react'
+import TodoList from './TodoList'
+import Tasks from './Tasks'
 
-export const TodoListContext = createContext();
 
-const Dashboard = () => {
-    const [todoList, setTodoList] = useState([])
-    const [tasks, setTasks] = useState([])
 
-    useEffect(() => {
-        axios   
-            .get('https://wunderlistdb.herokuapp.com/api/auth/todos/all')
-            .then(res => {
-                console.log('list data', res.data)
-                setTodoList(res.data)
-            })
-            .catch(err => console.log('error fetching lists', err))
-
-        axios
-            .get('https://wunderlistdb.herokuapp.com/api/auth/tasks')
-            .then(res => {
-                console.log('tasks', res.data)
-                setTasks(res.data)
-            })
-            .catch(err => console.log('error fetching tasks', err))
-    }, [])
+const Dashboard = props => {
+    console.log('props', props)
 
     return (
         <div className='dashboard'>
-            <TodoListContext.Provider list={todoList} tasks={tasks}>
-            Testing
-            </TodoListContext.Provider>
+                <TodoList />
+                <Tasks />
         </div>
     )
 }

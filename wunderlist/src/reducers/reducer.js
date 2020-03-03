@@ -1,31 +1,10 @@
 const initialState = {
-    isAuthenticated: false,
     isLoading: false,
-    tasks: [
-        { 
-            name: "clean dishes", 
-            description: "new soap", 
-            todo_list_Id: 1 
-        },
-        { 
-            name: "walk dog", 
-            description: "avoid 7th st", 
-            todo_list_Id: 1 
-        }],
-    todoLists: [
-        { 
-            id: 1, 
-            name: "daily stuff", 
-            User_id: 1 
-        },
-        { 
-            id: 2, 
-            name: "shopping list", 
-            User_id: 1 
-        }],
+    lists: [],
+    tasks: [],
 }
 
-export const reducer = (state = initialState, action) => {
+export const todoReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'LOGIN_SUCCESS':
             return {
