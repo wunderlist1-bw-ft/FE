@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import List from './List'
 
 
 
 const TodoList = props => {
-    console.log('todolist.js props', props)
+    //console.log('todolist.js props', props)
 
     return (
         <div className='list-container'>

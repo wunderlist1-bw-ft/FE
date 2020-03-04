@@ -8,17 +8,18 @@ import { fetchLists } from '../actions'
 
 
 
-const Dashboard = props => {
+const Dashboard = ({ fetchLists, fetchTasks }) => {
 
     useEffect(() => {
-        props.fetchLists();
-        props.fetchTasks()
-    }, [])
+        fetchLists();
+        fetchTasks()
+    }, [fetchLists, fetchTasks])
 
     return (
         <div className='dashboard'>
                 <TodoList />
                 <button>Add a New List</button>
+                <button>Clear Completed Items</button>
         </div>
     )
 }

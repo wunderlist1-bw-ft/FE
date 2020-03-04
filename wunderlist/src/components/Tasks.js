@@ -3,7 +3,7 @@ import React from 'react'
 
 
 const Tasks = props => {
-    console.log('tasks.js props', props)
+    //console.log('tasks.js props', props)
 
     return (
         <div>
@@ -11,6 +11,7 @@ const Tasks = props => {
                 <li>
                     {props.task.name}
                     <input type='checkbox' />
+                    <i className="far fa-edit" onClick={() => console.log('edit task clicked')}></i>
                 </li>
             </ul>
         </div>
