@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {axiosWithAuth} from '../axiosWithAuth' 
+import {axiosWithAuth} from '../../utils/axiosWithAuth' 
 import * as Yup from "yup";
 import "./LoginSignup.css";
 

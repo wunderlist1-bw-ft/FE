@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import TodoList from './TodoList'
+import TodoList from './list_components/TodoList'
 
 import { fetchTasks } from '../actions/index'
 import { fetchLists } from '../actions'

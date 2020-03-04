@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../components/axiosWithAuth'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 export const fetchLists = () => dispatch => {
     dispatch({ type: 'FETCHING_LISTS'})
