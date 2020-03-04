@@ -18,3 +18,11 @@ body {
 .list-container {
   display: flex;
 }
+
+.task {
+  color: green;
+}
+
+.task-complete {
+  text-decoration: line-through;
+}

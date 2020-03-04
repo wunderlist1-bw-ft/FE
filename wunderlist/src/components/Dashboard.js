@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import TodoList from './list_components/TodoList'
 
-import { fetchTasks } from '../actions/index'
+import { fetchTasks } from '../actions'
 import { fetchLists } from '../actions'
 
 

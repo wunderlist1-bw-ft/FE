@@ -27,3 +27,8 @@ export const fetchTasks = () => dispatch => {
                 dispatch({ type: 'TASKS_ERROR', payload: 'Error fetching tasks'})
             })
 }
+
+export const toggleComplete = id => {
+    console.log('toggleComplete in actions.js', id)
+    return { type: 'TOGGLE_TODO', payload: id}
+}
