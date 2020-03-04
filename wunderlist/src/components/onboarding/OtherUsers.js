@@ -20,6 +20,7 @@ const OtherUsers = () => {
                     index === 2 ? userSpanContent += " " : userSpanContent += ", ";
                     return <span key={user.id} className="other-user">{userSpanContent}</span>
                 }
+                return null;
             })}
             <span> and many more!</span>
         </div>

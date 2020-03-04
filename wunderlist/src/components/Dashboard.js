@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import TodoList from './list_components/TodoList'
+import Search from "./Search";
 
 import { fetchTasks } from '../actions/index'
 import { fetchLists } from '../actions'
@@ -8,7 +9,8 @@ import { fetchLists } from '../actions'
 
 
 
-const Dashboard = ({ fetchLists, fetchTasks }) => {
+const Dashboard = ({ fetchLists, fetchTasks, state }) => {
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         fetchLists();
@@ -17,9 +19,10 @@ const Dashboard = ({ fetchLists, fetchTasks }) => {
 
     return (
         <div className='dashboard'>
-                <TodoList />
-                <button>Add a New List</button>
-                <button>Clear Completed Items</button>
+            <Search setQuery={setQuery} />
+            <TodoList query={query} />
+            <button>Add a New List</button>
+            <button>Clear Completed Items</button>
         </div>
     )
 }
@@ -30,13 +33,13 @@ const mapStateToProps = state => {
         lists: state.lists,
         isLoading: state.isLoading,
         error: state.error
-     }
+    }
 }
 
 export default connect(
     mapStateToProps,
-    {fetchLists, fetchTasks}
-    )(Dashboard)
+    { fetchLists, fetchTasks }
+)(Dashboard)
 
 
 //Dashboard will render:
