@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "history": "^4.10.1",
+    "react-hook-form": "^4.10.1"
+  }
+}
