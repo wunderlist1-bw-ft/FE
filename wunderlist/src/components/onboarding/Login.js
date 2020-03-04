@@ -15,11 +15,11 @@ const LoginForm = props => {
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema }); 
 
     const onSubmit = () => {
-        console.log(credentials)
+        //console.log(credentials)
         axiosWithAuth()
             .post('/api/auth/users/login', credentials)
             .then(res => {
-                console.log(res)
+                //console.log(res)
                 window.localStorage.setItem('token', res.data.payload)
                 setCredentials({ username: '', password: '' });
                 props.history.push('/dashboard')
@@ -29,7 +29,7 @@ const LoginForm = props => {
     }
 
     const handleChange = e => {
-        console.log(e.target.name, e.target.value);
+       // console.log(e.target.name, e.target.value);
         setCredentials({ 
             ...credentials, 
             [e.target.name]: e.target.value 

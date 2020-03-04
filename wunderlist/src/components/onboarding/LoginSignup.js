@@ -1,10 +1,11 @@
 import React from "react";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import Signup from "./Signup";
 import Login from "./Login";
 import Dashboard from '../Dashboard'
+import PrivateRoute from '../PrivateRoute'
 
 const LoginSignup = props => {
     return (
@@ -16,13 +17,11 @@ const LoginSignup = props => {
                     <NavLink to="/signup">Sign Up</NavLink>
                     <NavLink to='/dashboard'>Dashboard</NavLink>
                 </div>
-                <Route exact path='/dashboard' component={Dashboard} />
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="/signup">
-                    <Signup />
-                </Route>
+                <Switch>
+                  <PrivateRoute exact path='/dashboard' component={Dashboard} />
+                  <Route path="/login" render={props => <Login {...props} />} />
+                  <Route path="/signup" render={props => <Signup {...props} />} />
+                </Switch>
             </div>
         </div>
     );

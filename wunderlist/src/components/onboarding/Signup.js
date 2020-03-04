@@ -11,16 +11,16 @@ const schema = Yup.object().shape({
 });
 
 const SignupForm = props => {
-    console.log(props)
+    //console.log(props)
     const [credentials, setCredentials] = useState({ username: '', password: '' });
-    const { register, handleSubmit, errors } = useForm({ validationSchema: schema}); // validationSchema: schema
+    const { register, handleSubmit, errors } = useForm({ validationSchema: schema});
 
     const onSubmit = () => {
-        console.log(credentials)
+        //console.log(credentials)
         axiosWithAuth()
             .post('/api/auth/users/register', credentials)
             .then(res => {
-                console.log(res)
+               // console.log(res)
                 window.localStorage.setItem('token', res.data.payload)
                 setCredentials({ username: '', password: '' });
                 props.history.push('/login')
@@ -29,7 +29,7 @@ const SignupForm = props => {
     }
 
     const handleChange = e => {
-        console.log(e.target.name, e.target.value);
+        //console.log(e.target.name, e.target.value);
         setCredentials({ 
             ...credentials, 
             [e.target.name]: e.target.value 
