@@ -1,27 +1,40 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import {axiosWithAuth} from '../../utils/axiosWithAuth' 
 import * as Yup from "yup";
 import "./LoginSignup.css";
+
 
 const schema = Yup.object().shape({
     username: Yup.string().required(),
     password: Yup.string().required()
 });
 
-const LoginForm = () => {
-    // const [credentials, setCredentials] = useState({ username: '', password: '' });
-    const { register, handleSubmit, errors } = useForm({ validationSchema: schema }); // validationSchema: schema
+const LoginForm = props => {
+    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const { register, handleSubmit, errors } = useForm({ validationSchema: schema }); 
 
-    const onSubmit = data => {
-        // e.preventDefault();
-        console.log(data);
-        // setCredentials({ username: '', password: '' });
+    const onSubmit = () => {
+        //console.log(credentials)
+        axiosWithAuth()
+            .post('/api/auth/users/login', credentials)
+            .then(res => {
+                console.log('logging in', res)
+                window.localStorage.setItem('token', res.data.token)
+                setCredentials({ username: '', password: '' });
+                props.history.push('/dashboard')
+            })
+            .catch(err => console.log(err))
+           
     }
 
-    // const handleChange = e => {
-    //     console.log(e.target.name, e.target.value);
-    //     setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    // }
+    const handleChange = e => {
+       // console.log(e.target.name, e.target.value);
+        setCredentials({ 
+            ...credentials, 
+            [e.target.name]: e.target.value 
+        });
+    }
 
     return (
         <div className="form-wrapper">
@@ -33,8 +46,8 @@ const LoginForm = () => {
                         name="username"
                         type="text"
                         placeholder="Username"
-                        // value={credentials.username}
-                        // onChange={handleChange}
+                        value={credentials.username}
+                        onChange={handleChange}
                         ref={register}
                     />
                     {errors.username && (<p>{errors.username.message}</p>)}
@@ -46,8 +59,8 @@ const LoginForm = () => {
                         name="password"
                         type="password"
                         placeholder="Password"
-                        // value={credentials.password}
-                        // onChange={handleChange}
+                        value={credentials.password}
+                        onChange={handleChange}
                         ref={register}
                     />
                     {errors.password && (<p>{errors.password.message}</p>)}

@@ -1,21 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { fetchTasks } from '../actions/index'
 
 import Tasks from './Tasks'
 
 const List = props => {
    // console.log('list.js props', props)
 
-    useEffect(() => { 
-        props.fetchTasks()
-    },[])
-
-
     return (
         <div className='todo-list'>
-           <h3>{props.list.name}</h3>
+           <strong>{props.list.name}</strong>
+           <i className="fas fa-times" onClick={() => console.log('delete list clicked')}></i>
+           <i className="far fa-edit" onClick={() => console.log('edit list clicked')}></i>
            {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
+        <button>Add a new task</button>
         </div>
     )
 }
@@ -31,5 +28,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchTasks }
+    {}
     )(List)

@@ -1,20 +1,42 @@
-import React from 'react'
-import TodoList from './TodoList'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import TodoList from './list_components/TodoList'
+
+import { fetchTasks } from '../actions/index'
+import { fetchLists } from '../actions'
 
 
 
 
-const Dashboard = props => {
+const Dashboard = ({ fetchLists, fetchTasks }) => {
+
+    useEffect(() => {
+        fetchLists();
+        fetchTasks()
+    }, [fetchLists, fetchTasks])
 
     return (
         <div className='dashboard'>
                 <TodoList />
                 <button>Add a New List</button>
+                <button>Clear Completed Items</button>
         </div>
     )
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks,
+        lists: state.lists,
+        isLoading: state.isLoading,
+        error: state.error
+     }
+}
+
+export default connect(
+    mapStateToProps,
+    {fetchLists, fetchTasks}
+    )(Dashboard)
 
 
 //Dashboard will render:
