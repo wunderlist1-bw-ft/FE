@@ -2,8 +2,6 @@ import React from 'react';
 import { Route } from "react-router-dom";
 import LoginSignup from "./components/onboarding/LoginSignup";
 import { BrowserRouter as Router } from "react-router-dom";
-import Dashboard from './components/Dashboard'
-
 
 import './App.css';
 

@@ -1,11 +1,12 @@
-import axios from "axios"
+import { axiosWithAuth } from '../components/axiosWithAuth'
 
 export const fetchLists = () => dispatch => {
     dispatch({ type: 'FETCHING_LISTS'})
-        axios
-            .get('https://wunderlistdb.herokuapp.com/api/auth/todos/all')
+        axiosWithAuth()
+            .get('/api/auth/todos/all')
             .then(res => {
                 console.log(res.data)
+                window.localStorage.setItem('token', res.data.payload)
                 dispatch({ type: 'SET_LISTS', payload: res.data})
             })
             .catch(err => {
@@ -16,14 +17,15 @@ export const fetchLists = () => dispatch => {
 
 export const fetchTasks = () => dispatch => {
     dispatch({ type: 'FETCHING_TASKS' })
-        axios
-            .get('https://wunderlistdb.herokuapp.com/api/auth/tasks')
+        axiosWithAuth()
+            .get('/api/auth/tasks')
             .then(res => {
-                //console.log(res.data)
+                console.log(res.data)
+                window.localStorage.setItem('token', res.data.payload)
                 dispatch({ type: 'SET_TASKS', payload: res.data})
             })
             .catch(err => {
                 console.log('error fetching lists', err)
-                dispatch({ type: 'TASKS_ERROR', payload: 'Error fetching lists'})
+                dispatch({ type: 'TASKS_ERROR', payload: 'Error fetching tasks'})
             })
 }

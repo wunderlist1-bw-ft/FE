@@ -11,7 +11,8 @@ export const todoReducer = (state = initialState, action) => {
         case 'FETCHING_LISTS':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                lists: []
             }
         case 'SET_LISTS':
             return {
@@ -28,7 +29,8 @@ export const todoReducer = (state = initialState, action) => {
         case 'FETCHING_TASKS':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                tasks: []
             }
         case 'SET_TASKS':
             return {

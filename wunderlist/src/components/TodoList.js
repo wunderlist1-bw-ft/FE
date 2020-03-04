@@ -1,27 +1,41 @@
+
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchLists } from '../actions'
-
-import List from './List'
-
+import { fetchTasks } from '../actions'
 
 const TodoList = props => {
-    console.log('todolist.js props', props)
 
     useEffect(() => {
         props.fetchLists();
+        props.fetchTasks();
     }, [])
+
+    const individualTasks = props.tasks.map(task => task.todo_list_Id === props.list.id && <div>
+        <ul key={task.id}>
+            <li>
+                {task.name}
+                <input type='checkbox' />
+            </li>
+        </ul>
+    </div>)
 
     return (
         <div className='list-container'>
            {props.lists.map(list => (
-               <List key={list.id} list={list} />
+               <div className='todo-list' key={list.id}>
+                   <p>{props.list.name}
+                   <button>Edit</button>
+                   <button>X</button>
+                   </p>
+               </div>
            ))}
         </div>
-    )
-}
-const mapStateToProps = state => {
+    )}
+ 
+
+ const mapStateToProps = state => {
     return {
        tasks: state.tasks,
        lists: state.lists,
@@ -32,5 +46,46 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps, 
-    { fetchLists }
+    { fetchLists, fetchTasks }
     )(TodoList);
+
+
+
+
+
+
+// import React, { useEffect } from 'react'
+// import { connect } from 'react-redux'
+// import { fetchLists } from '../actions'
+// import List from './List'
+
+
+
+// const TodoList = props => {
+//     console.log('todolist.js props', props)
+
+//     useEffect(() => {
+//         props.fetchLists();
+//     }, [])
+
+//     return (
+//         <div className='list-container'>
+//            {props.lists.map(list => (
+//                <List key={list.id} list={list} />
+//            ))}
+//         </div>
+//     )
+// }
+// const mapStateToProps = state => {
+//     return {
+//        tasks: state.tasks,
+//        lists: state.lists,
+//        isLoading: state.isLoading,
+//        error: state.error
+//     }
+// }
+
+// export default connect(
+//     mapStateToProps, 
+//     { fetchLists }
+//     )(TodoList);

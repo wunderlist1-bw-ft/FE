@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 
 
 import { todoReducer } from './reducers/reducer'
@@ -12,7 +13,7 @@ import App from './App';
 
 
 
-const store = createStore(todoReducer, applyMiddleware(thunk))
+const store = createStore(todoReducer, applyMiddleware(logger, thunk))
 //console.log("getting state", store.getState());
 
 ReactDOM.render(
