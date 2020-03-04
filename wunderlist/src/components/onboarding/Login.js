@@ -19,8 +19,8 @@ const LoginForm = props => {
         axiosWithAuth()
             .post('/api/auth/users/login', credentials)
             .then(res => {
-                //console.log(res)
-                window.localStorage.setItem('token', res.data.payload)
+                console.log('logging in', res)
+                window.localStorage.setItem('token', res.data.token)
                 setCredentials({ username: '', password: '' });
                 props.history.push('/dashboard')
             })

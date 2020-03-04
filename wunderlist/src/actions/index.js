@@ -6,7 +6,6 @@ export const fetchLists = () => dispatch => {
             .get('/api/auth/todos/all')
             .then(res => {
                 console.log(res.data)
-                window.localStorage.setItem('token', res.data.payload)
                 dispatch({ type: 'SET_LISTS', payload: res.data})
             })
             .catch(err => {
@@ -21,7 +20,6 @@ export const fetchTasks = () => dispatch => {
             .get('/api/auth/tasks')
             .then(res => {
                 console.log(res.data)
-                window.localStorage.setItem('token', res.data.payload)
                 dispatch({ type: 'SET_TASKS', payload: res.data})
             })
             .catch(err => {

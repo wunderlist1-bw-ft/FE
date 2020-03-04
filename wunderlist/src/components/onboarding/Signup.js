@@ -20,8 +20,7 @@ const SignupForm = props => {
         axiosWithAuth()
             .post('/api/auth/users/register', credentials)
             .then(res => {
-               // console.log(res)
-                window.localStorage.setItem('token', res.data.payload)
+                console.log(res)
                 setCredentials({ username: '', password: '' });
                 props.history.push('/login')
             })
@@ -65,7 +64,7 @@ const SignupForm = props => {
                     />
                     {errors.password && <p>{errors.password.message}</p>}
                 </label>
-                <button type="submit">Login</button>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     )

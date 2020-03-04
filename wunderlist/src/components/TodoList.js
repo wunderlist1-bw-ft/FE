@@ -1,41 +1,21 @@
-
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import List from './List'
 
-import { fetchLists } from '../actions'
-import { fetchTasks } from '../actions'
+
 
 const TodoList = props => {
-
-    useEffect(() => {
-        props.fetchLists();
-        props.fetchTasks();
-    }, [])
-
-    const individualTasks = props.tasks.map(task => task.todo_list_Id === props.list.id && <div>
-        <ul key={task.id}>
-            <li>
-                {task.name}
-                <input type='checkbox' />
-            </li>
-        </ul>
-    </div>)
+    console.log('todolist.js props', props)
 
     return (
         <div className='list-container'>
            {props.lists.map(list => (
-               <div className='todo-list' key={list.id}>
-                   <p>{props.list.name}
-                   <button>Edit</button>
-                   <button>X</button>
-                   </p>
-               </div>
+               <List key={list.id} list={list} />
            ))}
         </div>
-    )}
- 
-
- const mapStateToProps = state => {
+    )
+}
+const mapStateToProps = state => {
     return {
        tasks: state.tasks,
        lists: state.lists,
@@ -46,9 +26,8 @@ const TodoList = props => {
 
 export default connect(
     mapStateToProps, 
-    { fetchLists, fetchTasks }
+    {}
     )(TodoList);
-
 
 
 
@@ -56,27 +35,41 @@ export default connect(
 
 // import React, { useEffect } from 'react'
 // import { connect } from 'react-redux'
+
 // import { fetchLists } from '../actions'
-// import List from './List'
-
-
+// import { fetchTasks } from '../actions'
 
 // const TodoList = props => {
-//     console.log('todolist.js props', props)
 
 //     useEffect(() => {
 //         props.fetchLists();
+//         props.fetchTasks();
 //     }, [])
+
+//     const individualTasks = props.tasks.map(task => task.todo_list_Id === props.list.id && <div>
+//         <ul key={task.id}>
+//             <li>
+//                 {task.name}
+//                 <input type='checkbox' />
+//             </li>
+//         </ul>
+//     </div>)
 
 //     return (
 //         <div className='list-container'>
 //            {props.lists.map(list => (
-//                <List key={list.id} list={list} />
+//                <div className='todo-list' key={list.id}>
+//                    <p>{props.list.name}
+//                    <button>Edit</button>
+//                    <button>X</button>
+//                    </p>
+//                </div>
 //            ))}
 //         </div>
-//     )
-// }
-// const mapStateToProps = state => {
+//     )}
+ 
+
+//  const mapStateToProps = state => {
 //     return {
 //        tasks: state.tasks,
 //        lists: state.lists,
@@ -87,5 +80,5 @@ export default connect(
 
 // export default connect(
 //     mapStateToProps, 
-//     { fetchLists }
+//     { fetchLists, fetchTasks }
 //     )(TodoList);

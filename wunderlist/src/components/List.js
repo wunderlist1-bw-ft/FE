@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchTasks } from '../actions/index'
 
 import Tasks from './Tasks'
 
 const List = props => {
    // console.log('list.js props', props)
-
-    useEffect(() => { 
-        props.fetchTasks()
-    },[])
-
 
     return (
         <div className='todo-list'>
@@ -31,5 +25,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchTasks }
+    {}
     )(List)

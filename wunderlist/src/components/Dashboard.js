@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import TodoList from './TodoList'
+
+import { fetchTasks } from '../actions/index'
+import { fetchLists } from '../actions'
 
 
 
 
 const Dashboard = props => {
+
+    useEffect(() => {
+        props.fetchLists();
+        props.fetchTasks()
+    }, [])
 
     return (
         <div className='dashboard'>
@@ -14,7 +23,19 @@ const Dashboard = props => {
     )
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks,
+        lists: state.lists,
+        isLoading: state.isLoading,
+        error: state.error
+     }
+}
+
+export default connect(
+    mapStateToProps,
+    {fetchLists, fetchTasks}
+    )(Dashboard)
 
 
 //Dashboard will render:
