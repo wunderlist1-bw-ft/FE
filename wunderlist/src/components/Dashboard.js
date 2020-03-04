@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
+
 import TodoList from './list_components/TodoList'
 
 import { fetchTasks } from '../actions'
@@ -8,17 +10,23 @@ import { fetchLists } from '../actions'
 
 
 
-const Dashboard = ({ fetchLists, fetchTasks }) => {
+const Dashboard = ({ fetchLists, fetchTasks, history }) => {
 
     useEffect(() => {
         fetchLists();
         fetchTasks()
     }, [fetchLists, fetchTasks])
 
+    const handleAdd = e => {
+        e.preventDefault();
+        history.push('/add-list')
+    }
+
+
     return (
         <div className='dashboard'>
                 <TodoList />
-                <button>Add a New List</button>
+                <button onClick={handleAdd}>Add a New List</button>
                 <button>Clear Completed Items</button>
         </div>
     )

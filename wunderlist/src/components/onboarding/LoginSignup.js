@@ -5,6 +5,7 @@ import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import Signup from "./Signup";
 import Login from "./Login";
 import Dashboard from '../Dashboard'
+import AddList from '../list_components/AddList'
 import PrivateRoute from '../PrivateRoute'
 
 const LoginSignup = props => {
@@ -21,6 +22,7 @@ const LoginSignup = props => {
                   <PrivateRoute exact path='/dashboard' component={Dashboard} />
                   <Route path="/login" render={props => <Login {...props} />} />
                   <Route path="/signup" render={props => <Signup {...props} />} />
+                  <PrivateRoute path='/add-list'component={AddList} />
                 </Switch>
             </div>
         </div>

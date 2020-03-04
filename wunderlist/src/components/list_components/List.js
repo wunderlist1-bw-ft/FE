@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Tasks from './Tasks'
 
 const List = props => {
-   // console.log('list.js props', props)
+   //console.log('list.js props', props)
 
     return (
         <div className='todo-list'>

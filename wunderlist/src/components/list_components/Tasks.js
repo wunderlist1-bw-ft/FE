@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { toggleComplete } from '../../actions'
+import { toggleComplete, deleteTask } from '../../actions'
 
 
 const Tasks = props => {
-    console.log('tasks.js props', props)
+    //console.log('tasks.js props', props)
 
     return (
         <div>
@@ -13,8 +13,10 @@ const Tasks = props => {
                     {props.task.name}
                     <input type='checkbox' 
                     checked={props.task.completed}
-                    onClick={() => props.toggleComplete(props.task.id)}/>
+                    onChange={() => props.toggleComplete(props.task.id)}/>
                     <i className="far fa-edit"></i>
+                    <i className="fas fa-times"
+                    onClick={() => props.deleteTask(props.task.id)}></i>
                 </li>
             </ul>
         </div>
@@ -32,5 +34,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { toggleComplete }
+    { toggleComplete, deleteTask }
 )(Tasks)
