@@ -131,8 +131,28 @@ export const todoReducer = (state = initialState, action) => {
                 ...state,
                 tasks: clearCompleted
             }
+        case 'ADD_TASK_START':
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
+        case 'ADD_TASK_SUCCESS':
+            return {
+                ...state,
+                isLoading: false,
+                error: '',
+                tasks: [...state.tasks, action.payload]
+
+            }
+        case 'ADD_TASK_ERROR':
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload
+            }
         default:
             return state
     }
 }
-
+ 
