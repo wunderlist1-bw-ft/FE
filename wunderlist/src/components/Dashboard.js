@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import TodoList from './list_components/TodoList'
-import Search from "./Search";
 
 import TodoList from './list_components/TodoList'
+import Search from "./Search";
 
 import { fetchTasks, fetchLists, clearCompleted } from '../actions'
 
@@ -33,9 +32,6 @@ const Dashboard = ({ fetchLists, fetchTasks, tasks, history, state }) => {
                 <button onClick={handleAdd}>Add a New List</button>
                 <button onClick={clearCompleted}>Clear Completed Items</button>
             <Search setQuery={setQuery} />
-            <TodoList query={query} />
-            <button>Add a New List</button>
-            <button>Clear Completed Items</button>
         </div>
     )
 }

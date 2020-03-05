@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "name": "wunderlist",
+    "builds": [
+        { 
+            "src": "wunderlist/package.json", 
+            "use": "@now/static-build", 
+            "config": {
+                "distDir": "build"
+            }
+        }
+    ],
+    "routes": [
+    {
+        "src": "/(.*)", 
+        "dest": "wunderlist/$1" 
+    }
+    ]
+}
