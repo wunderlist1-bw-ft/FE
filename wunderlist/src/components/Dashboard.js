@@ -28,9 +28,9 @@ const Dashboard = ({ fetchLists, fetchTasks, tasks, history, state }) => {
 
     return (
         <div className='dashboard'>
-                <TodoList />
-                <button onClick={handleAdd}>Add a New List</button>
-                <button onClick={clearCompleted}>Clear Completed Items</button>
+            <TodoList query={query} />
+            <button onClick={handleAdd}>Add a New List</button>
+            <button onClick={clearCompleted}>Clear Completed Items</button>
             <Search setQuery={setQuery} />
         </div>
     )
@@ -47,8 +47,8 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {fetchLists, fetchTasks, clearCompleted }
-    )(Dashboard)
+    { fetchLists, fetchTasks, clearCompleted }
+)(Dashboard)
 
 
 //Dashboard will render:

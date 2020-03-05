@@ -12,7 +12,7 @@ const List = props => {
             <strong>{props.list.name}</strong>
             <i className="fas fa-times" onClick={() => props.deleteList(props.list.id)}></i>
             <i className="far fa-edit" onClick={() => console.log('edit list clicked')}></i>
-             {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
+            {props.tasks.map(task => task.name.includes(props.query) && task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task} />)}
             <button onClick={() => props.history.push('/add-task')}>Add a new task</button>
         </div>
     )
@@ -30,4 +30,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     { deleteList }
-    )(List)
+)(List)
