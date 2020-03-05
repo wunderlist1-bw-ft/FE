@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-const Search = () => {
-    const [query, setQuery] = useState('');
-
+const Search = ({ setQuery }) => {
     const handleChange = e => {
         setQuery(e.target.value);
     }
@@ -15,4 +13,10 @@ const Search = () => {
     )
 }
 
-export default Search;
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks,
+        lists: state.lists
+    }
+}
+export default connect(mapStateToProps, {})(Search);
