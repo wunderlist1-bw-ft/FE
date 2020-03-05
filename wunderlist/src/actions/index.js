@@ -29,7 +29,11 @@ export const fetchTasks = () => dispatch => {
 }
 
 export const toggleComplete = id => {
-    return { type: 'TOGGLE_TODO', payload: id }
+    return { type: 'TOGGLE_TASK', payload: id }
+}
+
+export const clearCompleted = task => {
+    return { type: 'CLEAR_COMPLETED', payload: task}
 }
 
 export const deleteTask = id => dispatch => {
@@ -58,4 +62,28 @@ export const addList = listInput => dispatch => {
             .catch(err => {
                 dispatch({ type: 'ERROR_ADDING_LIST', payload: 'Error adding list' })
             })
+}
+
+export const deleteList = id => dispatch => {
+    dispatch({ type: 'DELETE_LIST_START' })
+        axiosWithAuth()
+            .delete(`https://wunderlistdb.herokuapp.com/api/auth/todos/${id}`)
+            .then(res => {
+                console.log(res)
+                dispatch({ type: 'DELETE_LIST_SUCCESS', payload: res.data })
+            })
+            .catch(err => {
+                console.log('error deleting list', err)
+                dispatch({ type: 'ERROR_DELETING_LIST', paylod: 'Error deleting list' })
+            })
+}
+
+export const editTask = task => dispatch => {
+    dispatch({ type: 'EDIT_TASK_START' })
+        axiosWithAuth()
+            .put('')
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err))
 }

@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
 
 import TodoList from './list_components/TodoList'
 
-import { fetchTasks } from '../actions'
-import { fetchLists } from '../actions'
+import { fetchTasks, fetchLists, clearCompleted } from '../actions'
 
 
-
-
-const Dashboard = ({ fetchLists, fetchTasks, history }) => {
+const Dashboard = ({ fetchLists, fetchTasks, tasks, history }) => {
 
     useEffect(() => {
         fetchLists();
-        fetchTasks()
+        fetchTasks();
+
     }, [fetchLists, fetchTasks])
 
     const handleAdd = e => {
@@ -22,12 +19,17 @@ const Dashboard = ({ fetchLists, fetchTasks, history }) => {
         history.push('/add-list')
     }
 
+    const clearCompleted = e => {
+        e.preventDefault();
+        clearCompleted(tasks.completed)
+    }
+
 
     return (
         <div className='dashboard'>
                 <TodoList />
                 <button onClick={handleAdd}>Add a New List</button>
-                <button>Clear Completed Items</button>
+                <button onClick={clearCompleted}>Clear Completed Items</button>
         </div>
     )
 }
@@ -43,7 +45,7 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {fetchLists, fetchTasks}
+    {fetchLists, fetchTasks, clearCompleted }
     )(Dashboard)
 
 

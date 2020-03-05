@@ -61,7 +61,7 @@ export const todoReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload
             }
-        case 'TOGGLE_TODO':
+        case 'TOGGLE_TASK':
             const toggledTodo = state.tasks.map(task => task.id === action.payload ? {...task, completed: !task.completed} : task)
             return {
                 ...state,
@@ -75,11 +75,10 @@ export const todoReducer = (state = initialState, action) => {
                 error: ''
             }
         case 'DELETE_TASK_SUCCESS':
-            const deleteTask = state.tasks.filter(task => task.id !== action.payload && task)
             return {
                 ...state,
                 isLoading: false,
-                tasks: deleteTask,
+                tasks: state.tasks.filter(task => task.id !== action.payload && task),
                 error: ''
             }
         case 'ERROR_DELETING_TASK':
@@ -107,7 +106,33 @@ export const todoReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload
             }
+        case 'DELETE_LIST_START':
+            return {
+                ...state,
+                isLoading: true,
+                error: ''
+            }
+        case 'DELETE_LIST_SUCCESS':
+            return {
+                ...state,
+                isLoading: false,
+                error: '',
+                lists: [...state.lists]
+            }
+        case 'ERROR_DELETING_LIST':
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload
+            }
+        case 'CLEAR_COMPLETED':
+            const clearCompleted = state.tasks.filter(task => !task.completed)
+            return {
+                ...state,
+                tasks: clearCompleted
+            }
         default:
             return state
     }
 }
+
