@@ -18,3 +18,8 @@ body {
 .list-container {
   display: flex;
 }
+
+
+.task-complete {
+  text-decoration: line-through;
+}

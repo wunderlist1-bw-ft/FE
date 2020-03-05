@@ -14,7 +14,7 @@ import App from './App';
 
 
 const store = createStore(todoReducer, applyMiddleware(logger, thunk))
-//console.log("getting state", store.getState());
+console.log("getting state", store.getState());
 
 ReactDOM.render(
 <Provider store={store}>

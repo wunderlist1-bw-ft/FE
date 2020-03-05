@@ -3,22 +3,35 @@ import { connect } from 'react-redux'
 import TodoList from './list_components/TodoList'
 import Search from "./Search";
 
-import { fetchTasks } from '../actions/index'
-import { fetchLists } from '../actions'
+import TodoList from './list_components/TodoList'
 
+import { fetchTasks, fetchLists, clearCompleted } from '../actions'
 
-
-
-const Dashboard = ({ fetchLists, fetchTasks, state }) => {
+const Dashboard = ({ fetchLists, fetchTasks, tasks, history, state }) => {
     const [query, setQuery] = useState('');
 
     useEffect(() => {
         fetchLists();
-        fetchTasks()
+        fetchTasks();
+
     }, [fetchLists, fetchTasks])
+
+    const handleAdd = e => {
+        e.preventDefault();
+        history.push('/add-list')
+    }
+
+    const clearCompleted = e => {
+        e.preventDefault();
+        clearCompleted(tasks.completed)
+    }
+
 
     return (
         <div className='dashboard'>
+                <TodoList />
+                <button onClick={handleAdd}>Add a New List</button>
+                <button onClick={clearCompleted}>Clear Completed Items</button>
             <Search setQuery={setQuery} />
             <TodoList query={query} />
             <button>Add a New List</button>
@@ -38,8 +51,8 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { fetchLists, fetchTasks }
-)(Dashboard)
+    {fetchLists, fetchTasks, clearCompleted }
+    )(Dashboard)
 
 
 //Dashboard will render:

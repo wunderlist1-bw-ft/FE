@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { deleteList } from '../../actions'
 
 import Tasks from './Tasks'
 
@@ -9,10 +10,10 @@ const List = props => {
     return (
         <div className='todo-list'>
             <strong>{props.list.name}</strong>
-            <i className="fas fa-times" onClick={() => console.log('delete list clicked')}></i>
+            <i className="fas fa-times" onClick={() => props.deleteList(props.list.id)}></i>
             <i className="far fa-edit" onClick={() => console.log('edit list clicked')}></i>
-            {props.tasks.map(task => task.name.includes(props.query) && task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task} />)}
-            <button>Add a new task</button>
+             {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
+            <button onClick={() => props.history.push('/add-task')}>Add a new task</button>
         </div>
     )
 }
@@ -28,5 +29,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {}
-)(List)
+    { deleteList }
+    )(List)
