@@ -5,14 +5,15 @@ import { deleteList } from '../../actions'
 import Tasks from './Tasks'
 
 const List = props => {
-   //console.log('list.js props', props)
+    // console.log('list.js props', props)
+
     return (
         <div className='todo-list'>
-           <strong>{props.list.name}</strong>
-           <i className="fas fa-times" onClick={() => props.deleteList(props.list.id)}></i>
-           <i className="far fa-edit" onClick={() => console.log('edit list clicked')}></i>
-           {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
-        <button onClick={() => props.history.push('/add-task')}>Add a new task</button>
+            <strong>{props.list.name}</strong>
+            <i className="fas fa-times" onClick={() => props.deleteList(props.list.id)}></i>
+            <i className="far fa-edit" onClick={() => console.log('edit list clicked')}></i>
+             {props.tasks.map(task => task.todo_list_Id === props.list.id && <Tasks key={task.id} task={task}/>)}
+            <button onClick={() => props.history.push('/add-task')}>Add a new task</button>
         </div>
     )
 }

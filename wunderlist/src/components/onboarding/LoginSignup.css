@@ -36,6 +36,17 @@
     color: #4C6EF5;
 }
 
+.login-signup .other-users {
+    font-size: 1.6rem;
+}
+
+.login-signup .other-user {
+    font-size: 1.7rem;
+    background: linear-gradient(45deg, #4C6EF5, #D34CF5);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .login-signup .form-wrapper {
     width: 50%;
 }
@@ -51,6 +62,10 @@
     flex-direction: column;
     text-align: left;
     margin: 2% 0;
+}
+
+.login-signup .form-wrapper form label span {
+    display: none;
 }
 
 .login-signup .form-wrapper form label input {

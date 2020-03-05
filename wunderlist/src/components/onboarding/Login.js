@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {axiosWithAuth} from '../../utils/axiosWithAuth' 
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import * as Yup from "yup";
 import "./LoginSignup.css";
 
@@ -12,7 +12,7 @@ const schema = Yup.object().shape({
 
 const LoginForm = props => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
-    const { register, handleSubmit, errors } = useForm({ validationSchema: schema }); 
+    const { register, handleSubmit, errors } = useForm({ validationSchema: schema });
 
     const onSubmit = () => {
         //console.log(credentials)
@@ -25,14 +25,14 @@ const LoginForm = props => {
                 props.history.push('/dashboard')
             })
             .catch(err => console.log(err))
-           
+
     }
 
     const handleChange = e => {
-       // console.log(e.target.name, e.target.value);
-        setCredentials({ 
-            ...credentials, 
-            [e.target.name]: e.target.value 
+        // console.log(e.target.name, e.target.value);
+        setCredentials({
+            ...credentials,
+            [e.target.name]: e.target.value
         });
     }
 
@@ -40,7 +40,7 @@ const LoginForm = props => {
         <div className="form-wrapper">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="username">
-                    Username:
+                    <span>Username</span>
                     <input
                         id="username"
                         name="username"
@@ -53,7 +53,7 @@ const LoginForm = props => {
                     {errors.username && (<p>{errors.username.message}</p>)}
                 </label>
                 <label htmlFor="password">
-                    Password:
+                    <span>Password</span>
                     <input
                         id="password"
                         name="password"

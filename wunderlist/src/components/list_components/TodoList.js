@@ -9,25 +9,25 @@ const TodoList = props => {
 
     return (
         <div className='list-container'>
-           {props.lists.map(list => (
-               <List key={list.id} list={list}/>
-           ))}
+            {props.lists.map(list => (
+                <List key={list.id} list={list} query={props.query} />
+            ))}
         </div>
     )
 }
 const mapStateToProps = state => {
     return {
-       tasks: state.tasks,
-       lists: state.lists,
-       isLoading: state.isLoading,
-       error: state.error
+        tasks: state.tasks,
+        lists: state.lists,
+        isLoading: state.isLoading,
+        error: state.error
     }
 }
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     {}
-    )(TodoList);
+)(TodoList);
 
 
 
@@ -67,7 +67,7 @@ export default connect(
 //            ))}
 //         </div>
 //     )}
- 
+
 
 //  const mapStateToProps = state => {
 //     return {
