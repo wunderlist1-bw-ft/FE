@@ -69,4 +69,16 @@ const AddTask = props => {
     )
 }
 
-export default AddTask
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks,
+        lists: state.lists,
+        isLoading: state.isLoading,
+        error: state.error
+     }
+}
+
+export default connect(
+    mapStateToProps,
+    { addTask }
+)(AddTask)
