@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import * as Yup from "yup";
+import { useSpring, animated } from "react-spring";
 import "./LoginSignup.css";
 
 
@@ -10,7 +11,7 @@ const schema = Yup.object().shape({
     password: Yup.string().required()
 });
 
-const LoginForm = props => {
+const LoginForm = ({ history }) => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema });
 
@@ -22,7 +23,7 @@ const LoginForm = props => {
                 console.log('logging in', res)
                 window.localStorage.setItem('token', res.data.token)
                 setCredentials({ username: '', password: '' });
-                props.history.push('/dashboard')
+                history.push('/dashboard')
             })
             .catch(err => console.log(err))
 
@@ -36,8 +37,13 @@ const LoginForm = props => {
         });
     }
 
+    const props = useSpring({
+        transform: 'translateX(0vw)',
+        from: { transform: 'translateX(-100vw)' }
+    });
+
     return (
-        <div className="form-wrapper">
+        <animated.div className="form-wrapper" style={props}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="username">
                     <span>Username</span>
@@ -67,7 +73,7 @@ const LoginForm = props => {
                 </label>
                 <button type="submit">Login</button>
             </form>
-        </div>
+        </animated.div>
     )
 }
 

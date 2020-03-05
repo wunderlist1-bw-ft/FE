@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import * as Yup from "yup";
 import OtherUsers from "./OtherUsers";
+import { useSpring, animated } from "react-spring";
 import "./LoginSignup.css";
 
 const schema = Yup.object().shape({
@@ -11,7 +12,7 @@ const schema = Yup.object().shape({
     password: Yup.string().required()
 });
 
-const SignupForm = props => {
+const SignupForm = ({ history }) => {
     //console.log(props)
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema });
@@ -23,7 +24,7 @@ const SignupForm = props => {
             .then(res => {
                 console.log(res)
                 setCredentials({ username: '', password: '' });
-                props.history.push('/login')
+                history.push('/login')
             })
             .catch(err => console.log)
     }
@@ -36,12 +37,17 @@ const SignupForm = props => {
         });
     }
 
+    const props = useSpring({
+        transform: 'translateX(0vw)',
+        from: { transform: 'translateX(100vw)' }
+    });
+
     return (
         <>
-            <div className="other-users-wrapper">
+            <animated.div className="other-users-wrapper" style={props}>
                 <OtherUsers />
-            </div>
-            <div className="form-wrapper">
+            </animated.div>
+            <animated.div className="form-wrapper" style={props}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label htmlFor="username">
                         <span>Username</span>
@@ -71,7 +77,7 @@ const SignupForm = props => {
                     </label>
                     <button type="submit">Sign Up</button>
                 </form>
-            </div>
+            </animated.div>
         </>
     )
 }
