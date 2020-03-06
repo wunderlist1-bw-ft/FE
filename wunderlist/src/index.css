@@ -129,12 +129,15 @@ td {
   border: 1px solid black;
   background-color: rgba(0, 0, 255, 0.283);
   box-shadow: -5px 5px 8px grey;
+  color: white;
+  text-shadow: 1px 1px 8px black;
 }
 
 .table-button {
-  width: 85%;
+  width: 75%;
+  margin: 2%;
   padding: 2%;
-  background-color: rgba(137, 26, 235, 0.372);
+  background-color: rgba(18, 84, 225, 0.605);
   color: white;
 
 }
