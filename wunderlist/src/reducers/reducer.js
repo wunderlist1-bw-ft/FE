@@ -75,6 +75,7 @@ export const todoReducer = (state = initialState, action) => {
     }
 }
 
+
 // case 'UPDATE_TASK':
 //             const updatedTask = {
 //                 id: state.tasks.length + 1,
