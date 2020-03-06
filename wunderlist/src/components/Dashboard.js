@@ -62,6 +62,7 @@ const Dashboard = (props) => {
                     editing={editing}
                     setEditing={setEditing}
                     taskToUpdate={taskToUpdate}
+                    setTaskToUpdate={setTaskToUpdate}
                     updateTask={updateTask}
                     />
                 </div>

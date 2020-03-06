@@ -11,19 +11,20 @@ import {  taskUpdate } from '../../actions'
 
 const UpdateTask = props => {
     console.log(props)
-    const [input, setInput] = useState({ id: props.taskToUpdate.id, name: props.taskToUpdate.name, description: props.taskToUpdate.description})
+    const [input, setInput] = useState(props.taskToUpdate)
 
     const handleChange = e => {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         })
+        props.setTaskToUpdate({...input, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = e => {
         e.preventDefault()
         props.updateTask(input.id, input)
-        props.taskUpdate(input)
+        props.taskUpdate(props.taskToUpdate)
     }
 
     return (
@@ -42,8 +43,8 @@ const UpdateTask = props => {
             value={input.description}
             onChange={handleChange}
             />
-            <button >Update Task</button>
-            <button onClick={() => props.isEditing(false)} className='update-button'>Cancel</button>
+            <button>Update Task</button>
+            <button onClick={() => props.setEditing(false)} className='update-button'>Cancel</button>
         </form>
     )
 }
