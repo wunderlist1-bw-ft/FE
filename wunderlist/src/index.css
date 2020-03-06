@@ -127,10 +127,14 @@ label {
 
 td {
   border: 1px solid black;
+  background-color: rgba(0, 0, 255, 0.283);
+  box-shadow: -5px 5px 8px grey;
 }
 
 .table-button {
   width: 85%;
   padding: 2%;
+  background-color: rgba(137, 26, 235, 0.372);
+  color: white;
 
 }
