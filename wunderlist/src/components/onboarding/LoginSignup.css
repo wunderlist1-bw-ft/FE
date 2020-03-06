@@ -78,6 +78,11 @@
     font-size: 1.6rem;
 }
 
+.login-signup .form-wrapper form label .error {
+    color: red;
+    margin-bottom: 0;
+}
+
 .login-signup .form-wrapper form button {
     background: linear-gradient(to right, #4C6EF5, #D34CF5);
     color: white;

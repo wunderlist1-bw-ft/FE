@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import * as Yup from "yup";
@@ -12,30 +12,30 @@ const schema = Yup.object().shape({
 });
 
 const LoginForm = ({ history }) => {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    // const [credentials, setCredentials] = useState({ username: '', password: '' });
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema });
 
-    const onSubmit = () => {
+    const onSubmit = (data) => {
         //console.log(credentials)
         axiosWithAuth()
-            .post('/api/auth/users/login', credentials)
+            .post('/api/auth/users/login', data)
             .then(res => {
                 console.log('logging in', res)
                 window.localStorage.setItem('token', res.data.token)
-                setCredentials({ username: '', password: '' });
+                // setCredentials({ username: '', password: '' });
                 history.push('/dashboard')
             })
             .catch(err => console.log(err))
 
     }
 
-    const handleChange = e => {
-        // console.log(e.target.name, e.target.value);
-        setCredentials({
-            ...credentials,
-            [e.target.name]: e.target.value
-        });
-    }
+    // const handleChange = e => {
+    //     // console.log(e.target.name, e.target.value);
+    //     setCredentials({
+    //         ...credentials,
+    //         [e.target.name]: e.target.value
+    //     });
+    // }
 
     const props = useSpring({
         transform: 'translateX(0vw)',
@@ -52,8 +52,8 @@ const LoginForm = ({ history }) => {
                         name="username"
                         type="text"
                         placeholder="Username"
-                        value={credentials.username}
-                        onChange={handleChange}
+                        // value={credentials.username}
+                        // onChange={handleChange}
                         ref={register}
                     />
                     {errors.username && (<p>{errors.username.message}</p>)}
@@ -65,8 +65,8 @@ const LoginForm = ({ history }) => {
                         name="password"
                         type="password"
                         placeholder="Password"
-                        value={credentials.password}
-                        onChange={handleChange}
+                        // value={credentials.password}
+                        // onChange={handleChange}
                         ref={register}
                     />
                     {errors.password && (<p>{errors.password.message}</p>)}
