@@ -1,81 +1,49 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+
 import { addTask } from '../../actions'
 
 const AddTask = props => {
-    const [taskInput, setTaskInput] = useState({
-        id: '',
-        name: '',
-        description: '',
-        start_Date: '',
-        end_date: '',
-        completed: false,
-        todo_list_Id: props.tasks.todo_list_Id
-    })
-
-    const handleChange = e => {
-        e.preventDefault()
-        setTaskInput({
-            [e.target.name]: e.target.value
-        })
-    }
+    const [input, setInput] = useState({id: null, name: '', description: ''})
 
     const handleSubmit = e => {
         e.preventDefault()
-        props.addTask(taskInput)
-        props.history.push('/dashboard')
+        props.addTask(input)
+        console.log(props.tasks)
     }
 
+    const handleChange = e => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
+    }
+   
     return (
         <form onSubmit={handleSubmit}>
-            <label>
-            name
-             <input
+            <label>Name</label>
+            <input
             type='text'
             name='name'
-            value={taskInput.name}
+            value={input.name}
             onChange={handleChange}
             />
-            </label>
-            <label>
-            description
+            <label>Description</label>
             <input
             type='text'
             name='description'
-            value={taskInput.description}
+            value={input.description}
             onChange={handleChange}
             />
-            </label>
-            <label>
-            start date
-            <input
-            type='text'
-            name='start_Date'
-            value={taskInput.start_Date}
-            onChange={handleChange}
-            />
-            </label>
-            <label>
-            end date
-            <input
-            type='text'
-            name='end_date'
-            value={taskInput.end_date}
-            onChange={handleChange}
-            />
-            </label>
-            
+            <button>Add Task</button>
         </form>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        tasks: state.tasks,
-        lists: state.lists,
-        isLoading: state.isLoading,
-        error: state.error
-     }
+        tasks: state.tasks
+    }
 }
 
 export default connect(

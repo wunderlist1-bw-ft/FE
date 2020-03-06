@@ -2,52 +2,97 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 import TodoList from './list_components/TodoList'
-import Search from "./Search";
+import AddTask from './list_components/AddTask'
+import UpdateTask from './list_components/UpdateTask'
 
-import { fetchTasks, fetchLists, clearCompleted } from '../actions'
+import { fetchTasks } from '../actions'
 
-const Dashboard = ({ fetchLists, fetchTasks, tasks, history, state }) => {
-    const [query, setQuery] = useState('');
+const initialForm = {
+    id: null,
+    name: '',
+    description: ''
+}
+
+
+const Dashboard = (props) => {
+    //console.log('history', history)
+    //console.log('tasks', tasks)
+    const [tasks, setTasks] = useState(props.tasks)
+    const [editing, setEditing] = useState(false)
+    const [taskToUpdate, setTaskToUpdate] = useState(initialForm)
+
+    const editTask = task => {
+        setEditing(true)
+        setTaskToUpdate({ id: task.id, name: task.name, description: task.description})
+    }
+    
+    const updateTask = (id, updatedTask) => {
+        setEditing(false)
+
+        setTasks(props.tasks.map(task => (task.id === id ? updatedTask : task)))
+    }
+    
+    //const [query, setQuery] = useState('');
+
+    // const taskToUpdate = props.tasks.map(task => {
+    //     if (task.id === null) {
+    //     setCurrentTask({
+    //         id: task.id,
+    //         name: task.name,
+    //         description: task.description
+    //     })
+    //     } else return task
+    // })
 
     useEffect(() => {
-        fetchLists();
-        fetchTasks();
+        props.fetchTasks();
 
-    }, [fetchLists, fetchTasks])
+    }, [])
 
-    const handleAdd = e => {
-        e.preventDefault();
-        history.push('/add-list')
-    }
-
-    const clearCompleted = e => {
-        e.preventDefault();
-        clearCompleted(tasks.completed)
-    }
-
+    
 
     return (
         <div className='dashboard'>
-                <TodoList />
-                <button onClick={handleAdd}>Add a New List</button>
-                <button onClick={clearCompleted}>Clear Completed Items</button>
-            <Search setQuery={setQuery} />
+            <h1>Welcome to your Wunderlist</h1>
+            <div className='task-container'>
+            {editing ? (
+                <div>
+                    <h2>Edit Task</h2>
+                    <UpdateTask 
+                    editing={editing}
+                    setEditing={setEditing}
+                    taskToUpdate={taskToUpdate}
+                    updateTask={updateTask}
+                    />
+                </div>
+            ) : (
+                <div>
+                    <h2>Add Task</h2>
+                    <AddTask />
+                </div> 
+                )}
+                <div className='dashboard-right'>
+                    <h2>Current Tasks</h2>
+                    <TodoList editTask={editTask}/>
+                </div>
+            </div>
         </div>
-    )
-}
+
+
+            )}
 
 const mapStateToProps = state => {
     return {
         tasks: state.tasks,
-        lists: state.lists,
         isLoading: state.isLoading,
-        error: state.error
+        error: state.error,
+        isEditing: state.isEditing
     }
 }
 
 export default connect(
     mapStateToProps,
-    {fetchLists, fetchTasks, clearCompleted }
+    { fetchTasks }
     )(Dashboard)
 
 

@@ -1,84 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import List from './List'
-
+import { deleteTask, toggleEdit } from '../../actions'
 
 
 const TodoList = props => {
-    //console.log('todolist.js props', props)
 
     return (
-        <div className='list-container'>
-            {props.lists.map(list => (
-                <List key={list.id} list={list} query={props.query} />
-            ))}
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.tasks.length > 0 ? (
+                    props.tasks.map(task => (
+                        <tr key={task.id}>
+                            <td>{task.name}</td>
+                            <td>{task.description}</td>
+                            <td>
+                                <button className='table-button'
+                                onClick={() => {
+                                    props.editTask(task)
+                                }}>Edit Task</button>
+                                <button className='table-button'
+                                onClick={() => props.deleteTask(task.id)}>Delete Task</button>
+                            </td>
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td>You've done it all!</td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
     )
 }
+
 const mapStateToProps = state => {
     return {
         tasks: state.tasks,
-        lists: state.lists,
-        isLoading: state.isLoading,
-        error: state.error
+        isEditing: state.isEditing
     }
 }
 
 export default connect(
     mapStateToProps,
-    {}
-)(TodoList);
-
-
-
-
-
-// import React, { useEffect } from 'react'
-// import { connect } from 'react-redux'
-
-// import { fetchLists } from '../actions'
-// import { fetchTasks } from '../actions'
-
-// const TodoList = props => {
-
-//     useEffect(() => {
-//         props.fetchLists();
-//         props.fetchTasks();
-//     }, [])
-
-//     const individualTasks = props.tasks.map(task => task.todo_list_Id === props.list.id && <div>
-//         <ul key={task.id}>
-//             <li>
-//                 {task.name}
-//                 <input type='checkbox' />
-//             </li>
-//         </ul>
-//     </div>)
-
-//     return (
-//         <div className='list-container'>
-//            {props.lists.map(list => (
-//                <div className='todo-list' key={list.id}>
-//                    <p>{props.list.name}
-//                    <button>Edit</button>
-//                    <button>X</button>
-//                    </p>
-//                </div>
-//            ))}
-//         </div>
-//     )}
-
-
-//  const mapStateToProps = state => {
-//     return {
-//        tasks: state.tasks,
-//        lists: state.lists,
-//        isLoading: state.isLoading,
-//        error: state.error
-//     }
-// }
-
-// export default connect(
-//     mapStateToProps, 
-//     { fetchLists, fetchTasks }
-//     )(TodoList);
+    { deleteTask, toggleEdit }
+    )(TodoList)

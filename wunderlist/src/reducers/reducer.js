@@ -1,12 +1,6 @@
 const initialState = {
     isLoading: false,
     error: '',
-    lists: [{
-        id: '',
-        name: '',
-        completed: false,
-        User_id: ''
-    }],
     tasks: [{
         id: '',
         name: '',
@@ -16,31 +10,11 @@ const initialState = {
         completed: false,
         todo_list_Id: ''
     }],
+    isEditing: false
 }
-
 
 export const todoReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'FETCHING_LISTS':
-            return {
-                ...state,
-                isLoading: true,
-                lists: [],
-                error: ''
-            }
-        case 'SET_LISTS':
-            return {
-                ...state,
-                isLoading: false,
-                lists: action.payload,
-                error: ''
-            }
-        case 'LISTS_ERROR':
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload
-            }
         case 'FETCHING_TASKS':
             return {
                 ...state,
@@ -61,98 +35,55 @@ export const todoReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload
             }
-        case 'TOGGLE_TASK':
-            const toggledTodo = state.tasks.map(task => task.id === action.payload ? {...task, completed: !task.completed} : task)
+        case 'ADD_TASK':
+            const newTask = {
+                id: state.tasks.length + 1,
+                name: action.payload.name,
+                description: action.payload.description,
+                start_Date: null,
+                end_date: null,
+                completed: false,
+                todo_list_Id: null
+            }
             return {
                 ...state,
-                tasks: toggledTodo,
-                error: ''
+                tasks: [...state.tasks, newTask]
             }
-        case 'DELETE_TASK_START':
+        case 'DELETE_TASK':
             return {
                 ...state,
-                isLoading: true,
-                error: ''
+                tasks: state.tasks.filter(task => task.id !== action.payload)
             }
-        case 'DELETE_TASK_SUCCESS':
+        case 'TOGGLE_EDIT':
             return {
                 ...state,
-                isLoading: false,
-                tasks: state.tasks.filter(task => task.id !== action.payload && task),
-                error: ''
+                isEditing: true
             }
-        case 'ERROR_DELETING_TASK':
+        case 'TASK_UPDATE':
+            const filteredTasks = state.tasks.filter(task => task.id === action.payload.id ? action.payload : task)
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload
+                tasks: [...state.tasks, filteredTasks]
             }
-        case 'ADDING_LIST':
-            return {
-                ...state,
-                isLoading: true,
-                error: ''
-            }
-        case 'ADDING_LIST_SUCCESS':
-            return {
-                ...state,
-                isLoading: false,
-                error: '',
-                lists: [...state.lists, action.payload]
-            }
-        case 'ERROR_ADDING_LIST':
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload
-            }
-        case 'DELETE_LIST_START':
-            return {
-                ...state,
-                isLoading: true,
-                error: ''
-            }
-        case 'DELETE_LIST_SUCCESS':
-            return {
-                ...state,
-                isLoading: false,
-                error: '',
-                lists: [...state.lists]
-            }
-        case 'ERROR_DELETING_LIST':
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload
-            }
-        case 'CLEAR_COMPLETED':
-            const clearCompleted = state.tasks.filter(task => !task.completed)
-            return {
-                ...state,
-                tasks: clearCompleted
-            }
-        case 'ADD_TASK_START':
-            return {
-                ...state,
-                isLoading: true,
-                error: ''
-            }
-        case 'ADD_TASK_SUCCESS':
-            return {
-                ...state,
-                isLoading: false,
-                error: '',
-                tasks: [...state.tasks, action.payload]
-
-            }
-        case 'ADD_TASK_ERROR':
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload
-            }
+           
         default:
             return state
     }
 }
- 
+
+// case 'UPDATE_TASK':
+//             const updatedTask = {
+//                 id: state.tasks.length + 1,
+//                 name: action.payload.name,
+//                 description: action.payload.description,
+//                 start_Date: null,
+//                 end_date: null,
+//                 completed: false,
+//                 todo_list_Id: null
+//             }
+
+// return {
+//     ...state,
+//     isEditing: false,
+//     tasks: state.tasks.map(task => task.id === action.payload ? updatedTask : task)
+// }

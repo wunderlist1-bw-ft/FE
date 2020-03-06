@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { deleteList } from '../../actions'
 
-import Tasks from './Tasks'
+import Tasks from '../list_components/Tasks'
 
 const List = props => {
-    // console.log('list.js props', props)
+    //console.log('list.js props', props)
 
     return (
         <div className='todo-list'>
