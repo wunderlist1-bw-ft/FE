@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import * as Yup from "yup";
@@ -25,7 +25,6 @@ const LoginForm = props => {
                 props.history.push('/dashboard')
             })
             .catch(err => console.log(err))
-
     }
 
     const handleChange = e => {

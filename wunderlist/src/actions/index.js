@@ -21,3 +21,11 @@ export const addTask = task => {
 export const deleteTask = id => {
     return { type: 'DELETE_TASK', payload: id }
 }
+
+export const toggleEdit = () => {
+    return { type: 'TOGGLE_EDIT' }
+}
+
+export const taskUpdate = task => {
+    return { type: 'UPDATE_TASK', payload: task}
+}
