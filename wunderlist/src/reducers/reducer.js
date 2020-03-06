@@ -59,11 +59,15 @@ export const todoReducer = (state = initialState, action) => {
                 ...state,
                 isEditing: true
             }
-        case 'TASK_UPDATE':
-            const filteredTasks = state.tasks.filter(task => task.id === action.payload.id ? action.payload : task)
+        case 'UPDATE_TASK':
+                const filteredTasks = state.tasks.map(task => {
+                    if (task.id === action.payload.id) {
+                        return action.payload
+                    } else return task
+                })
             return {
                 ...state,
-                tasks: [...state.tasks, filteredTasks]
+                tasks: filteredTasks
             }
            
         default:
@@ -81,7 +85,12 @@ export const todoReducer = (state = initialState, action) => {
 //                 completed: false,
 //                 todo_list_Id: null
 //             }
-
+// case 'TASK_UPDATE':
+//             const filteredTasks = state.tasks.filter(task => task.id === action.payload.id ? action.payload : task)
+//             return {
+//                 ...state,
+//                 tasks: [...state.tasks, filteredTasks]
+//             }
 // return {
 //     ...state,
 //     isEditing: false,
