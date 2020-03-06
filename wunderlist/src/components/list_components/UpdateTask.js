@@ -28,26 +28,26 @@ const UpdateTask = props => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='update-task'>
             <label>Name</label>
             <input
             type='text'
             name='name'
             value={input.name}
             onChange={handleChange}
-            />
-            <label>description</label>
-            <input
-            type='text'
+            /><br />
+            <label>Description</label>
+            <textarea
             name='description'
             value={input.description}
             onChange={handleChange}
-            />
-            <button>Update Task</button>
-            <button onClick={() => props.setEditing(false)} className='update-button'>Cancel</button>
+            /><br />
+            <button className='update-button'>Update Task</button><br />
+            <button onClick={() => props.setEditing(false)} className='cancel-button'>Cancel</button>
         </form>
     )
 }
+
 
 const mapStateToProps = state => {
     return {

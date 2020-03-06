@@ -30,10 +30,107 @@ body {
 }
 
 .dashboard {
-  width: 90%;
+  width: 100%;
 }
 
 .task-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.task-list {
+  background-color: rgba(76, 110, 245, 0.358);
+  box-shadow: -15px 15px 8px grey;
+  padding: 5%;
+  margin: 5%;
+
+}
+
+.add-task {
+  background-color: rgba(137, 26, 235, 0.372);
+  box-shadow: -15px 15px 8px grey;
+  padding: 10%;
+  margin: 5%;
+}
+
+input {
+  height: 25px;
+  width: 175px;
+  font-size: 1.5rem;
+  text-align: center;
+  box-shadow: -5px 5px 5px grey;
+  margin-top: 3%;
+  margin-bottom: 8%;
+}
+
+textarea {
+  height: 25px;
+  width: 175px;
+  font-size: 1.5rem;
+  margin-top: 3%;
+  margin-bottom: 12%;
+  text-align: center;
+  box-shadow: -5px 5px 5px grey;
+}
+
+label {
+  font-size: 1.75rem;
+  font-weight: bolder;
+  color: rgba(0, 0, 0, 0.728);
+  text-shadow: -5px 5px 8px white;
+}
+
+.update-task {
+  background-color: rgba(137, 26, 235, 0.372);
+  box-shadow: -15px 15px 8px grey;
+  padding: 10%;
+  margin: 5%;
+}
+
+.update-button {
+  width: 55%;
+  font-size: 1.25rem;
+  padding: 5%;
+  box-shadow: -5px 5px 8px grey;
+  background: linear-gradient(45deg, rgba(60, 98, 252, 0.92), rgba(213, 56, 252, 0.934));
+  color: white;
+  font-weight: bolder;
+  margin-bottom: 5%;
+}
+
+.add-button {
+  width: 55%;
+  font-size: 1.5rem;
+  padding: 3%;
+  box-shadow: -5px 5px 8px grey;
+  background: linear-gradient(45deg, rgba(76, 110, 245, 0.92), rgba(211, 76, 245, 0.886));
+  color: white;
+  font-weight: bolder;
+ 
+}
+
+.cancel-button {
+  width: 55%;
+  font-size: 1.25rem;
+  padding: 3%;
+  box-shadow: -5px 5px 8px grey;
+  background-color: rgba(255, 0, 0, 0.482);
+  color: white;
+  font-weight: bolder;
+}
+
+.options {
+  display: flex;
+}
+
+
+td {
+  border: 1px solid black;
+}
+
+.table-button {
+  width: 85%;
+  padding: 2%;
+
+}
