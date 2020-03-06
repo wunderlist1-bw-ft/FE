@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 import TodoList from './list_components/TodoList'
+import AddTask from './list_components/AddTask'
 
 import { fetchTasks } from '../actions'
 
@@ -17,7 +18,17 @@ const Dashboard = (props) => {
 
     return (
         <div className='dashboard'>
-                <TodoList />
+            <h1>Welcome to your Wunderlist</h1>
+            <div className='flex-row'>
+                <div className='dashboard-left'>
+                    <h2>Add Task</h2>
+                    <AddTask />
+                </div>
+                <div className='dashboard-right'>
+                    <h2>Current Tasks</h2>
+                    <TodoList />
+                </div>
+            </div>  
             {/* <Search setQuery={setQuery} /> */}
         </div>
     )

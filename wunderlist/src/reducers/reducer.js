@@ -34,6 +34,20 @@ export const todoReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload
             }
+        case 'ADD_TASK':
+            const newTask = {
+                id: state.tasks.length + 1,
+                name: action.payload.name,
+                description: action.payload.description,
+                start_Date: null,
+                end_date: null,
+                completed: false,
+                todo_list_Id: null
+            }
+            return {
+                ...state,
+                tasks: [...state.tasks, newTask]
+            }
         default:
             return state
     }

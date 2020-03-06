@@ -22,4 +22,21 @@ body {
 
 .task-complete {
   text-decoration: line-through;
+  
+}
+
+.flex-row {
+  display: flex;
+}
+
+.dashboard {
+  width: 90%;
+}
+
+.dashboard-left {
+  width: 30%;
+}
+
+.dashboard-right {
+  width: 70%;
 }

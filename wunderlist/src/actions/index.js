@@ -13,3 +13,7 @@ export const fetchTasks = () => dispatch => {
                 dispatch({ type: 'TASKS_ERROR', payload: 'Error fetching tasks' })
             })
 }
+
+export const addTask = task => {
+    return { type: 'ADD_TASK', payload: task }
+}
