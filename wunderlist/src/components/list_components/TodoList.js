@@ -6,7 +6,7 @@ import { deleteTask, toggleEdit } from '../../actions'
 const TodoList = props => {
 
     return (
-        <table>
+        <table className='task-list'>
             <thead>
                 <tr>
                     <th>Task</th>
