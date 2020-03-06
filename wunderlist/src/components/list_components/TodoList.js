@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { deleteTask } from '../../actions'
 
 const TodoList = props => {
-    //console.log(props)
+    console.log(props)
 
     return (
         <table>
@@ -21,7 +22,8 @@ const TodoList = props => {
                             <td>{task.description}</td>
                             <td>
                                 <button className='table-button'>Edit Task</button>
-                                <button className='table-button'>Delete Task</button>
+                                <button className='table-button'
+                                onClick={() => props.deleteTask(task.id)}>Delete Task</button>
                             </td>
                         </tr>
                     ))
@@ -43,5 +45,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {}
+    { deleteTask }
     )(TodoList)

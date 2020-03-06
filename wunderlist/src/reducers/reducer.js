@@ -48,6 +48,11 @@ export const todoReducer = (state = initialState, action) => {
                 ...state,
                 tasks: [...state.tasks, newTask]
             }
+        case 'DELETE_TASK':
+            return {
+                ...state,
+                tasks: state.tasks.filter(task => task.id !== action.payload)
+            }
         default:
             return state
     }
