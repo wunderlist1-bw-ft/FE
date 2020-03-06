@@ -25,6 +25,7 @@ const LoginSignup = props => {
                   <Route path="/signup" render={props => <Signup {...props} />} />
                   {/* <PrivateRoute path='/add-list'component={AddList} />
                   <PrivateRoute path='/add-task'component={AddTask} /> */}
+                  <Route exact path='/' component={Signup} />
                 </Switch>
             </div>
         </div>
