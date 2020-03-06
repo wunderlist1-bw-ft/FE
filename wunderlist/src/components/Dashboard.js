@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import TodoList from './list_components/TodoList'
 
-import { fetchTasks, fetchLists, clearCompleted } from '../actions'
+import { fetchTasks } from '../actions'
 
 const Dashboard = (props) => {
     //console.log('history', history)
@@ -11,30 +11,13 @@ const Dashboard = (props) => {
     //const [query, setQuery] = useState('');
 
     useEffect(() => {
-        props.fetchLists();
         props.fetchTasks();
 
     }, [])
 
-    const handleAdd = e => {
-        e.preventDefault();
-        props.history.push('/add-list')
-    }
-
-    function clearCompleted(event) {
-        //console.log(e)
-        event.preventDefault();
-        clearCompleted(props.tasks)
-    }
-
-
     return (
         <div className='dashboard'>
-                {/* <TodoList history={history} query={setQuery}/> */}
-                
-                <TodoList history={props.history} />
-                <button onClick={handleAdd}>Add a New List</button>
-                <button onClick={clearCompleted}>Clear Completed Items</button>
+                <TodoList />
             {/* <Search setQuery={setQuery} /> */}
         </div>
     )
@@ -43,7 +26,6 @@ const Dashboard = (props) => {
 const mapStateToProps = state => {
     return {
         tasks: state.tasks,
-        lists: state.lists,
         isLoading: state.isLoading,
         error: state.error
     }
@@ -51,7 +33,7 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {fetchLists, fetchTasks, clearCompleted }
+    { fetchTasks }
     )(Dashboard)
 
 
