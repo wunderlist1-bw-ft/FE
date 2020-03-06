@@ -117,7 +117,7 @@ export const todoReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 error: '',
-                lists: [...state.lists]
+                lists: state.lists.filter(list => list.id !== action.payload && list)
             }
         case 'ERROR_DELETING_LIST':
             return {
@@ -143,7 +143,6 @@ export const todoReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: '',
                 tasks: [...state.tasks, action.payload]
-
             }
         case 'ADD_TASK_ERROR':
             return {

@@ -1,24 +1,26 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import { toggleComplete, deleteTask, editTask } from '../../actions'
 
 
 const Tasks = props => {
     //console.log('tasks.js props', props)
     const [editing, setEditing] = useState(false)
+
     const [input, setInput] = useState({ 
         name: '', 
-        description: '',
-        id: props.task.id,
-        start_Date: '',
-        end_date: '',
-        completed: false,
-        User_id: props.User_id
+        description: ''
          })
 
     const handleSubmit = e => {
         e.preventDefault()
-        props.editTask(input)
+        axiosWithAuth()
+            .post(`https://wunderlistdb.herokuapp.com/api/auth/tasks/${props.task.id}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+       // props.editTask(props.task.id)
     }
 
     const handleChange = e => {
@@ -28,7 +30,6 @@ const Tasks = props => {
             [e.target.name]: e.target.value
         })
     }
-
 
     return (
         <div>
@@ -50,7 +51,8 @@ const Tasks = props => {
                         <input
                         type='text'
                         name='name'
-                        value={props.task.name}
+                        value={input.name}
+                        placeholder={props.task.name}
                         onChange={handleChange}
                         />
                     </label>
@@ -59,25 +61,8 @@ const Tasks = props => {
                         <input
                         type='text'
                         name='description'
-                        value={props.task.description}
-                        onChange={handleChange}
-                        />
-                    </label>
-                    <label>
-                        start date
-                        <input
-                        type='text'
-                        name='start_Date'
-                        value={props.start_Date}
-                        onChange={handleChange}
-                        />
-                    </label>
-                    <label>
-                        end date
-                        <input
-                        type='text'
-                        name='end_date'
-                        value={props.end_date}
+                        value={input.description}
+                        placeholder={props.task.description}
                         onChange={handleChange}
                         />
                     </label>

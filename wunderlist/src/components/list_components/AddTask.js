@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { addTask } from '../../actions'
 
 const AddTask = props => {
+    //console.log('addtask', props)
     const [taskInput, setTaskInput] = useState({
-        id: '',
         name: '',
         description: '',
         start_Date: '',
@@ -16,18 +16,20 @@ const AddTask = props => {
     const handleChange = e => {
         e.preventDefault()
         setTaskInput({
+            ...taskInput,
             [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = e => {
+        console.log('taskInput', taskInput)
         e.preventDefault()
         props.addTask(taskInput)
         props.history.push('/dashboard')
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <label>
             name
              <input
@@ -64,7 +66,16 @@ const AddTask = props => {
             onChange={handleChange}
             />
             </label>
-            
+            <label>
+            list id
+            <input
+            type='text'
+            name='todo_list_Id'
+            value={props.tasks.todo_list_Id}
+            onChange={handleChange}
+            />
+            </label>
+            <button onClick={handleSubmit}>Add to the list</button>
         </form>
     )
 }

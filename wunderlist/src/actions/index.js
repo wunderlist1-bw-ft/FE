@@ -3,7 +3,7 @@ import { axiosWithAuth } from '../utils/axiosWithAuth'
 export const fetchLists = () => dispatch => {
     dispatch({ type: 'FETCHING_LISTS'})
         axiosWithAuth()
-            .get('/api/auth/todos/all')
+            .get('https://wunderlistdb.herokuapp.com/api/auth/todos/all')
             .then(res => {
                 //console.log(res.data)
                 dispatch({ type: 'SET_LISTS', payload: res.data })
@@ -17,7 +17,7 @@ export const fetchLists = () => dispatch => {
 export const fetchTasks = () => dispatch => {
     dispatch({ type: 'FETCHING_TASKS' })
         axiosWithAuth()
-            .get('/api/auth/tasks')
+            .get('https://wunderlistdb.herokuapp.com/api/auth/tasks')
             .then(res => {
                 //console.log(res.data)
                 dispatch({ type: 'SET_TASKS', payload: res.data })
@@ -32,35 +32,63 @@ export const toggleComplete = id => {
     return { type: 'TOGGLE_TASK', payload: id }
 }
 
-export const clearCompleted = task => {
-    return { type: 'CLEAR_COMPLETED', payload: task}
+export const clearCompleted = () => {
+    return { type: 'CLEAR_COMPLETED' }
 }
 
-export const deleteTask = id => dispatch => {
-    dispatch({ type: 'DELETE_TASK_START' })
+export const editTask = task => dispatch => {
+    dispatch({ type: 'EDIT_TASK_START' })
         axiosWithAuth()
-            .delete(`/api/auth/tasks/${id}`)
+            .post(`https://wunderlistdb.herokuapp.com/api/auth/todos/${task.id}`, task)
             .then(res => {
                 console.log(res)
-                dispatch({ type: 'DELETE_TASK_SUCCESS', payload: res.data })
+                dispatch({ type: 'EDIT_TASK_SUCCESS', payload: res.data })
             })
             .catch(err => {
-                //console.log('error deleting task', err)
-                dispatch({ type: 'ERROR_DELETING_TASK', payload: 'Error deleting task' })
+                console.log('Error editing task', err)
+                dispatch({ type: 'EDIT_TASK_ERROR', payload: 'Error editing task' })
             })
+}
 
+export const addTask = taskInput => dispatch => {
+    dispatch({ type: 'ADD_TASK_START' })
+    axiosWithAuth()
+        .post('https://wunderlistdb.herokuapp.com/api/auth/tasks/add', taskInput)
+        .then(res => {
+            console.log('add task', res)
+            dispatch({ type: 'ADD_TASK_SUCCESS', payload: res.data })
+        })
+        .catch(err => {
+            console.log('Error adding task', err)
+            dispatch({ type: 'ADD_TASK_ERROR', payload: 'Error adding task' })
+        })
 }
 
 export const addList = listInput => dispatch => {
     dispatch({ type: 'ADDING_LIST' })
         axiosWithAuth()
-            .post('/api/auth/todos/add', listInput)
+            .post('https://wunderlistdb.herokuapp.com/api/auth/todos/add', listInput)
             .then(res => {
-                console.log(res)
+                console.log(res, res.data)
                 dispatch({ type: 'ADDING_LIST_SUCCESS', payload: res.data})
             })
             .catch(err => {
                 dispatch({ type: 'ERROR_ADDING_LIST', payload: 'Error adding list' })
+            })
+}
+
+export const deleteTask = id => dispatch => {
+    dispatch({ type: 'DELETE_TASK_START' })
+        axiosWithAuth()
+            .delete(`https://wunderlistdb.herokuapp.com/api/auth/tasks/${id}`)
+            .then(res => {
+                console.log(res)
+                dispatch({ type: 'DELETE_TASK_SUCCESS', payload: res.data })
+                window.location.reload();
+            })
+            .catch(err => {
+                //console.log('error deleting task', err)
+                dispatch({ type: 'ERROR_DELETING_TASK', payload: 'Error deleting task' })
             })
 }
 
@@ -71,6 +99,7 @@ export const deleteList = id => dispatch => {
             .then(res => {
                 console.log(res)
                 dispatch({ type: 'DELETE_LIST_SUCCESS', payload: res.data })
+                window.location.reload();
             })
             .catch(err => {
                 console.log('error deleting list', err)
@@ -78,26 +107,5 @@ export const deleteList = id => dispatch => {
             })
 }
 
-export const editTask = task => dispatch => {
-    dispatch({ type: 'EDIT_TASK_START' })
-        axiosWithAuth()
-            .put('')
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => console.log(err))
-}
 
-export const addTask = taskInput => dispatch => {
-    dispatch({ type: 'ADD_TASK_START' })
-    axiosWithAuth()
-        .post('https://wunderlistdb.herokuapp.com/api/auth/tasks/add', taskInput)
-        .then(res => {
-            console.log(res)
-            dispatch({ type: 'ADD_TASK_SUCCESS', payload: res.data })
-        })
-        .catch(err => {
-            console.log('Error adding task', err)
-            dispatch({ type: 'ADD_TASK_ERROR', payload: 'Error adding task' })
-        })
-}
+

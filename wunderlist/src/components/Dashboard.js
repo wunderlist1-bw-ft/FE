@@ -2,36 +2,40 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 import TodoList from './list_components/TodoList'
-import Search from "./Search";
 
 import { fetchTasks, fetchLists, clearCompleted } from '../actions'
 
-const Dashboard = ({ fetchLists, fetchTasks, tasks, history, state }) => {
-    const [query, setQuery] = useState('');
+const Dashboard = (props) => {
+    //console.log('history', history)
+    //console.log('tasks', tasks)
+    //const [query, setQuery] = useState('');
 
     useEffect(() => {
-        fetchLists();
-        fetchTasks();
+        props.fetchLists();
+        props.fetchTasks();
 
-    }, [fetchLists, fetchTasks])
+    }, [])
 
     const handleAdd = e => {
         e.preventDefault();
-        history.push('/add-list')
+        props.history.push('/add-list')
     }
 
-    const clearCompleted = e => {
-        e.preventDefault();
-        clearCompleted(tasks.completed)
+    function clearCompleted(event) {
+        //console.log(e)
+        event.preventDefault();
+        clearCompleted(props.tasks)
     }
 
 
     return (
         <div className='dashboard'>
-                <TodoList />
+                {/* <TodoList history={history} query={setQuery}/> */}
+                
+                <TodoList history={props.history} />
                 <button onClick={handleAdd}>Add a New List</button>
                 <button onClick={clearCompleted}>Clear Completed Items</button>
-            <Search setQuery={setQuery} />
+            {/* <Search setQuery={setQuery} /> */}
         </div>
     )
 }
